@@ -4,3 +4,4 @@ __pycache__
 lib
 lib64
 pyvenv.cfg
+client_secret_GoogleCloudDemo.json
