@@ -3,14 +3,13 @@ from src.services.listTaskLists import listTasksList
 from src.servers.tasksServer import Task
 import pandas as pd
 
-
 server = Task().init()
 
 # PEGAR TASKS DE UMA LISTA X
 flagsList = listTasksList(server)
-# print(flagsList)
 
-tasks = tasksLen = {}
+tasksLen = {}
+tasks = {}
 totalTasks = 0
 
 for flag in flagsList:
@@ -18,7 +17,7 @@ for flag in flagsList:
         tasklist=flag['id'],
         maxResults=20,
         showDeleted=False,
-        # dueMin='2023-03-11T00:00:00.000Z'
+        dueMax='2023-02-11T00:00:00.000Z'
     ).execute()
     items = response.get('items')
 
@@ -35,9 +34,20 @@ print(totalTasks)
 # CALCULAR PORCENTAGEM IMPACTO DA LISTA X NO TOTAL DE ATIVIDADES
 # X% das suas atividades sao advindas da lista Y 
 percentLists = {}
-for key, value in tasks.items():
+for key, value in tasksLen.items():
     percentLists[key] = round((value/totalTasks)*100)
 
-    print(f"{percentLists[key]}% of your tasks comes from flag: {key}")
+    # print(f"{percentLists[key]}% of your tasks comes from flag: {key}")
 
 
+# DE QUAL LISTA VEM AS TASKS QUE EU MAIS CONCLUO
+notConcludedTasks = {}
+for key, value in tasks.items():
+    notConcludedTasks[key] = 0
+    for item in value:
+        print(f"\n {item['title']}   |  {item['status']}")
+        if item['status'] == 'needsAction':
+            notConcludedTasks[key] += 1
+
+print(notConcludedTasks)
+# print(tasks)
