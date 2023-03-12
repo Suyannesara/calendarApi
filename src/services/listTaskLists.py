@@ -1,4 +1,3 @@
-from tasksServer import Task
 # RETURNS A LIST OF TASKLISTS 
 
 def listTasksList(server):

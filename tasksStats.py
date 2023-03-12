@@ -1,6 +1,6 @@
-from Google import convert_to_RFC_datetime
-from listTaskLists import listTasksList
-from tasksServer import Task
+from src.servers.Google import convert_to_RFC_datetime
+from src.services.listTaskLists import listTasksList
+from src.servers.tasksServer import Task
 import pandas as pd
 
 
@@ -23,13 +23,13 @@ for flag in flagsList:
         # dueMin='2023-03-11T00:00:00.000Z'
     ).execute()
     items = response.get('items')
-    tasks.append({flag['title']: items['id']})
+    # tasks.append({flag['title']: items['id']})
     
     # if items:
     #     tasksDf[flag['title']] = len(items)
 
 # code = len(tasksDf['CODE'])
-print(tasks)
+print(items)
 # tasks = response.get('items')
 
 
